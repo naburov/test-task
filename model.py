@@ -41,46 +41,45 @@ class DarkNetResidualBlock(tf.keras.Model):
 
 
 def DarkNet53(inputs):
-    x = DarkNetConvBlock(32, (3, 3), strides=(1, 1))(inputs)
-    x = DarkNetConvBlock(64, (3, 3), strides=(2, 2))(x)
+  x = DarkNetConvBlock(32, (3,3), strides=(1,1))(inputs)
+  x = DarkNetConvBlock(64, (3,3), strides=(2,2))(x)
 
-    x = DarkNetResidualBlock((3, 3), [32, 64])(x)
+  x = DarkNetResidualBlock((3,3), [32, 64])(x)
 
-    x = DarkNetConvBlock(128, (3, 3), strides=(2, 2))(x)
+  x = DarkNetConvBlock(128, (3,3), strides=(2,2))(x)
 
-    x = DarkNetResidualBlock((3, 3), [64, 128])(x)
-    x = DarkNetResidualBlock((3, 3), [64, 128])(x)
+  x = DarkNetResidualBlock((3,3), [64, 128])(x)
+  x = DarkNetResidualBlock((3,3), [64, 128])(x)
 
-    x = DarkNetConvBlock(256, (3, 3), strides=(2, 2))(x)
+  x = DarkNetConvBlock(256, (3,3), strides=(2,2))(x)
 
-    x = DarkNetResidualBlock((3, 3), [128, 256])(x)
-    x = DarkNetResidualBlock((3, 3), [128, 256])(x)
-    # x = DarkNetResidualBlock((3,3), [128, 256])(x)
-    # x = DarkNetResidualBlock((3,3), [128, 256])(x)
-    x = DarkNetResidualBlock((3, 3), [128, 256])(x)
-    x = DarkNetResidualBlock((3, 3), [128, 256])(x)
-    x = DarkNetResidualBlock((3, 3), [128, 256])(x)
-    block_large_out = DarkNetResidualBlock((3, 3), [128, 256])(x)
+  x = DarkNetResidualBlock((3,3), [128, 256])(x)
+  x = DarkNetResidualBlock((3,3), [128, 256])(x)
+  # x = DarkNetResidualBlock((3,3), [128, 256])(x)
+  # x = DarkNetResidualBlock((3,3), [128, 256])(x)
+  # x = DarkNetResidualBlock((3,3), [128, 256])(x)
+  x = DarkNetResidualBlock((3,3), [128, 256])(x)
+  x = DarkNetResidualBlock((3,3), [128, 256])(x)
+  block_large_out = DarkNetResidualBlock((3,3), [128, 256])(x)
 
-    x = DarkNetConvBlock(512, (3, 3), strides=(2, 2))(block_large_out)
+  x = DarkNetConvBlock(512, (3,3), strides=(2,2))(block_large_out)
 
-    x = DarkNetResidualBlock((3, 3), [256, 512])(x)
-    x = DarkNetResidualBlock((3, 3), [256, 512])(x)
-    x = DarkNetResidualBlock((3, 3), [256, 512])(x)
-    # x = DarkNetResidualBlock((3,3), [256, 512])(x)
-    # x = DarkNetResidualBlock((3,3), [256, 512])(x)
-    x = DarkNetResidualBlock((3, 3), [256, 512])(x)
-    x = DarkNetResidualBlock((3, 3), [256, 512])(x)
-    block_medium_out = DarkNetResidualBlock((3, 3), [256, 512])(x)
+  x = DarkNetResidualBlock((3,3), [256, 512])(x)
+  x = DarkNetResidualBlock((3,3), [256, 512])(x)
+  x = DarkNetResidualBlock((3,3), [256, 512])(x)
+  # x = DarkNetResidualBlock((3,3), [256, 512])(x)
+  # x = DarkNetResidualBlock((3,3), [256, 512])(x)
+  # x = DarkNetResidualBlock((3,3), [256, 512])(x)
+  x = DarkNetResidualBlock((3,3), [256, 512])(x)
+  block_medium_out = DarkNetResidualBlock((3,3), [256, 512])(x)
 
-    x = DarkNetConvBlock(1024, (3, 3), strides=(2, 2))(block_medium_out)
+  x = DarkNetConvBlock(1024, (3,3), strides=(2,2))(block_medium_out)
 
-    x = DarkNetResidualBlock((3, 3), [512, 1024])(x)
-    x = DarkNetResidualBlock((3, 3), [512, 1024])(x)
-    x = DarkNetResidualBlock((3, 3), [512, 1024])(x)
-    block_small_out = DarkNetResidualBlock((3, 3), [512, 1024])(x)
-    return tf.keras.Model(inputs=inputs, outputs=[block_small_out, block_medium_out, block_large_out])
-
+  x = DarkNetResidualBlock((3,3), [512, 1024])(x)
+  x = DarkNetResidualBlock((3,3), [512, 1024])(x)
+  x = DarkNetResidualBlock((3,3), [512, 1024])(x)
+  block_small_out = DarkNetResidualBlock((3,3), [512, 1024])(x)
+  return tf.keras.Model(inputs=inputs, outputs=[block_small_out, block_medium_out, block_large_out])
 
 def yolov3():
     inputs = tf.keras.layers.Input(shape=(416, 416, 3), batch_size=4)

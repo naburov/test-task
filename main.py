@@ -22,7 +22,7 @@ def main(argv):
     print('Input file is "', inputfile)
     print('Predicting')
     predict(inputfile, outputfile)
-    print('Saved in is "', outputfile)
+    print('Saved in "', outputfile)
 
 
 if __name__ == "__main__":
