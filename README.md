@@ -13,3 +13,5 @@ Main.py позволяет протестировать модель. Скрип
 ```python
 python main.py -i "<path to input image>" -o "<path to output image> -c <confidence_threshhold>"
 ```
+## Процесс обучения
+В папке loss charts находятся графики обучения. Evaluation total loss - график значений функции потерь для изображений, на которых модель не тренировалась. Total loss - график функции потерь во время тренировки. Обучение проводилось на протяжении 10 эпох.
