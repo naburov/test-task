@@ -17,7 +17,7 @@ def sigmoid(x):
     return 1 / (1 + math.exp(-x))
 
 
-def get_boxes_per_array(y_pred):
+def get_boxes_per_array(y_pred, confidence_thresh):
     n_grid = y_pred.shape[2]
     anchor_boxes_tensor = []
     offsets = []
@@ -58,8 +58,7 @@ def get_boxes_per_array(y_pred):
         for j in range(0, n_grid):
             for k in range(0, n_grid):
                 predicted_objectness = predicted_objecteness[i, j, k]
-                confidence_threshhold = 0.6
-                if (predicted_objectness > confidence_threshhold):
+                if (predicted_objectness > confidence_thresh):
                     # print(x_offset, y_offset)
                     # print(left_top_corner[i,j,k,0])
                     x0 = int(left_top_corner[i, j, k, 0])
@@ -70,12 +69,12 @@ def get_boxes_per_array(y_pred):
     return boxes
 
 
-def draw_pred_image(image, small_predicted, medium_predicted, large_predicted, NMS=False):
+def draw_pred_image(image, small_predicted, medium_predicted, large_predicted, confidence_thresh, NMS=False):
     image = Image.fromarray(np.uint8((image) * 255))
     pred_d = ImageDraw.Draw(image)
 
-    boxes = get_boxes_per_array(small_predicted) + get_boxes_per_array(medium_predicted) + get_boxes_per_array(
-        large_predicted)
+    boxes = get_boxes_per_array(small_predicted, confidence_thresh) + get_boxes_per_array(medium_predicted, confidence_thresh) + get_boxes_per_array(
+        large_predicted, confidence_thresh)
 
     boxes = np.array(boxes)
     if (len(boxes) > 0 and NMS):

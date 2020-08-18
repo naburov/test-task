@@ -3,7 +3,7 @@ from model import yolov3
 from image_utils import draw_pred_image
 import numpy as np
 
-def predict(open_path, save_path):
+def predict(open_path, save_path, confidence_thresh):
     image = load_and_preprocess_image(open_path)
     print('Image opened')
     model = yolov3()
@@ -11,7 +11,7 @@ def predict(open_path, save_path):
     print('Weights loaded')
     small_array, medium_array, large_array = model(image[tf.newaxis, ...])
     print('Predict received')
-    image = draw_pred_image(image, small_array[0, ...], medium_array[0, ...], large_array[0, ...])
+    image = draw_pred_image(image, small_array[0, ...], medium_array[0, ...], large_array[0, ...], confidence_thresh)
     image.save(save_path, "JPEG")
     print('Saved')
     return

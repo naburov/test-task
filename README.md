@@ -11,5 +11,5 @@ Main.py позволяет протестировать модель. Скрип
 
 Для использования необходимо выполнить команду: 
 ```python
-python main.py -i "<path to input image>" -o "<path to output image>"
+python main.py -i "<path to input image>" -o "<path to output image> -c <confidence_threshhold>"
 ```
